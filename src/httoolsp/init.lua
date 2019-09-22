@@ -1,5 +1,7 @@
 local _M = {}
 
+_M._VERSION = '0.1.0'
+
 local str_sub = string.sub
 local str_find = string.find
 local str_gmatch = string.gmatch
