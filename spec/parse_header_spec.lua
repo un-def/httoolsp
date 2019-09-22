@@ -1,6 +1,9 @@
 local parse_header = require('httoolsp').parse_header
 
 
+local table_unpack = table.unpack or unpack
+
+
 local tests = {
   -- original tests from Python
   {
@@ -53,7 +56,7 @@ local tests = {
 
 describe('parse_header', function()
   for _, test in ipairs(tests) do
-    local header, expected_value, expected_params = table.unpack(test)
+    local header, expected_value, expected_params = table_unpack(test)
     it(header, function()
       local value, params = parse_header(header)
       assert.are.equal(expected_value, value)
