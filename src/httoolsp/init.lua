@@ -24,15 +24,14 @@ local str_strip = function(s)
 end
 
 local split_iter = function(header, remainder)
-  -- Splits passed line by semicolon.
+  -- Splits a semicolon-separated string (such as MIME header).
   -- Returns a pair (remainder, value) on each call.
-  -- Remainder serve as a state variable and should be ignored.
+  -- The remainder serves as a control variable and should be ignored.
   if not remainder then
     -- first iteration
     remainder = header
-  elseif str_sub(remainder, 1, 1) == ';' then
-    remainder = str_sub(remainder, 2)
-  else
+  elseif remainder == '' then
+    -- last iteration
     return nil
   end
   local idx = str_find(remainder, ';', 1, true)
@@ -45,12 +44,14 @@ local split_iter = function(header, remainder)
     remainder = ''
   else
     value = str_strip(str_sub(remainder, 1, idx - 1))
-    remainder = str_sub(remainder, idx)
+    remainder = str_sub(remainder, idx + 1)
   end
   return remainder, value
 end
 
 _M.parse_header = function(header)
+  -- Parse a header into a main value and a table of parameters.
+  -- This function is partially based on `cgi.parse_header` from CPython.
   local params = {}
   local remainder, value = split_iter(header)
   for _, p in split_iter, header, remainder do

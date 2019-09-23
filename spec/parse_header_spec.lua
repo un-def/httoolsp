@@ -1,11 +1,9 @@
 local parse_header = require('httoolsp').parse_header
 
-
 local table_unpack = table.unpack or unpack
 
-
 local tests = {
-  -- original tests from Python
+  -- original tests from CPython
   {
     'text/plain',
     'text/plain', {},
@@ -51,8 +49,19 @@ local tests = {
     ' attachment\t;; ; filename="silly.txt"; foo;bar; size=123;baz;;; ',
     'attachment', {filename = 'silly.txt', size = '123'},
   },
+  {
+    '',
+    '', {},
+  },
+  {
+    ' ',
+    '', {},
+  },
+  {
+    ';;;',
+    '', {},
+  },
 }
-
 
 describe('parse_header', function()
   for _, test in ipairs(tests) do
