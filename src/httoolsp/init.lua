@@ -1,5 +1,5 @@
 local _M = {
-  _VERSION = '0.1.0',
+  _VERSION = '0.1.1',
   _DESCRIPTION = 'A collection of HTTP-related pure Lua helper functions',
   _AUTHOR = 'un.def <me@undef.im>',
   _LICENSE = 'MIT License',
