@@ -1,6 +1,10 @@
-local _M = {}
-
-_M._VERSION = '0.1.0'
+local _M = {
+  _VERSION = '0.1.0',
+  _DESCRIPTION = 'A collection of HTTP-related pure Lua helper functions',
+  _AUTHOR = 'un.def <me@undef.im>',
+  _LICENSE = 'MIT License',
+  _URL = 'https://github.com/un-def/httoolsp',
+}
 
 local str_sub = string.sub
 local str_find = string.find
