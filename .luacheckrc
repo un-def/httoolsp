@@ -1,3 +1,3 @@
 return {
-  std = 'max+busted',
+  std = 'min',
 }
