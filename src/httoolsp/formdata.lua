@@ -12,7 +12,7 @@ _check_value_type = function(value)
   if value_type == 'string' or value_type == 'function' then
     return true
   end
-  return false, ('value %s has unsupported type %s'):format(value, value_type)
+  return false, ('value %s has unsupported type %s'):format(tostring(value), value_type)
 end
 local _check_param_type
 _check_param_type = function(param_name, param)

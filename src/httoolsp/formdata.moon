@@ -15,7 +15,7 @@ _check_value_type = (value) ->
     value_type = type value
     if value_type == 'string' or value_type == 'function'
         return true
-    return false, 'value %s has unsupported type %s'\format value, value_type
+    return false, 'value %s has unsupported type %s'\format tostring(value), value_type
 
 _check_param_type = (param_name, param) ->
     if type(param) == 'string'
