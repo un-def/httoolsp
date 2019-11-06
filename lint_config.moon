@@ -1,5 +1,5 @@
 {
     whitelist_globals: {
-        'spec': {'describe', 'it'}
+        'spec': {'describe', 'it', 'before_each'}
     }
 }

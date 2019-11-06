@@ -16,5 +16,5 @@ test: build
   busted -v spec/
 
 lint: build
-  find -name '*.moon' -exec moonpick {} \;
+  find -name '*.moon' -print -exec moonpick {} \;
   luacheck src/
