@@ -2,18 +2,24 @@ dist: xenial
 language: python
 
 env:
-  - LUA="lua 5.1"
-  - LUA="lua 5.2"
-  - LUA="lua 5.3"
-  - LUA="luajit 2.0"
-  - LUA="luajit 2.1"
+  global:
+    - JUST="https://github.com/casey/just/releases/download/v0.4.5/just-v0.4.5-x86_64-unknown-linux-musl.tar.gz"
+  jobs:
+    - LUA="lua 5.1"
+    - LUA="lua 5.2"
+    - LUA="lua 5.3"
+    - LUA="luajit 2.0"
+    - LUA="luajit 2.1"
 
-before_install:
+install:
   - pip install hererocks
   - hererocks env --$LUA --luarocks latest
   - source env/bin/activate
-  - luarocks install moonscript
-  - luarocks install busted
+  - mkdir -p "$HOME/bin"
+  - wget "$JUST" -O - | tar -xzC "$HOME/bin" just
+  - export PATH="$HOME/bin:$PATH"
+  - just install-dev-deps
 
 script:
-  - busted
+  - just lint
+  - just test
