@@ -3,6 +3,12 @@ formdata = require 'httoolsp.formdata'
 
 NIL = {}
 
+ERR_BOUNDARY_INVALID = 'boundary must be a non-empty string no longer than 70 characters'
+ERR_BOUNDARY_ALREADY_SET = 'boundary is already set'
+
+ERR_MUTATE_ALREADY_ITERATED = 'form-data is already iterated, cannot mutate'
+ERR_MUTATE_ALREADY_RENDERED = 'form-data is already rendered, cannot mutate'
+
 ERR_INVALID = {
     name: 'name parameter must be a string'
     content_type: 'content_type parameter must be a string or nil'
@@ -57,23 +63,20 @@ describe 'get_boundary', ->
 
 describe 'set_boundary', ->
 
-    err_invalid = 'boundary must be a non-empty string no longer than 70 characters'
-    err_already_set = 'boundary is already set'
-
     it 'should accept only strings', ->
         ok, err = fd\set_boundary 123
         assert.is.false ok
-        assert.is.equal err_invalid, err
+        assert.is.equal ERR_BOUNDARY_INVALID, err
 
     it 'should not accept empty string', ->
         ok, err = fd\set_boundary ''
         assert.is.false ok
-        assert.is.equal err_invalid, err
+        assert.is.equal ERR_BOUNDARY_INVALID, err
 
     it 'should not accept string longer than 70 chars', ->
         ok, err = fd\set_boundary string.rep '#', 71
         assert.is.false ok
-        assert.is.equal err_invalid, err
+        assert.is.equal ERR_BOUNDARY_INVALID, err
 
     describe 'should not allow to set boundary in it is already set', ->
 
@@ -81,13 +84,27 @@ describe 'set_boundary', ->
             fd\set_boundary 'BNDR'
             ok, err = fd\set_boundary 'BNDRNEW'
             assert.is.false ok
-            assert.is.equal err_already_set, err
+            assert.is.equal ERR_BOUNDARY_ALREADY_SET, err
 
-        it 'implicitly', ->
+        it 'implicitly via get_boundary', ->
             fd\get_boundary!
             ok, err = fd\set_boundary 'BNDRNEW'
             assert.is.false ok
-            assert.is.equal err_already_set, err
+            assert.is.equal ERR_BOUNDARY_ALREADY_SET, err
+
+        it 'implicitly via render', ->
+            fd\set 'field', 'value'
+            fd\render!
+            ok, err = fd\set_boundary 'BNDRNEW'
+            assert.is.false ok
+            assert.is.equal ERR_BOUNDARY_ALREADY_SET, err
+
+        it 'implicitly via ierator', ->
+            fd\set 'field', 'value'
+            fd\iterator!
+            ok, err = fd\set_boundary 'BNDRNEW'
+            assert.is.false ok
+            assert.is.equal ERR_BOUNDARY_ALREADY_SET, err
 
 
 describe 'get', ->
@@ -191,6 +208,22 @@ describe 'set', ->
                 err = err\gsub '0x%x+', '0xdeadbeef', 1
                 assert.is.equal expected_err\format(value), err
 
+    it 'should return error if already iterated', ->
+        fd\set 'field', 'foo'
+        fd\iterator!
+        ok, err = fd\set 'field', 'bar'
+        assert.is.false ok
+        assert.is.equal ERR_MUTATE_ALREADY_ITERATED, err
+        assert.is.same {'foo'}, fd\get_all 'field'
+
+    it 'should return error if already rendered', ->
+        fd\set 'field', 'foo'
+        fd\render!
+        ok, err = fd\set 'field', 'bar'
+        assert.is.false ok
+        assert.is.equal ERR_MUTATE_ALREADY_RENDERED, err
+        assert.is.same {'foo'}, fd\get_all 'field'
+
     it 'should set a new value', ->
         ok, err = fd\set 'field', 'foo'
         assert.is.true ok
@@ -234,6 +267,22 @@ describe 'add', ->
                 assert.is.false ok
                 err = err\gsub '0x%x+', '0xdeadbeef', 1
                 assert.is.equal expected_err\format(value), err
+
+    it 'should return error if already iterated', ->
+        fd\set 'field', 'foo'
+        fd\iterator!
+        ok, err = fd\add 'field', 'bar'
+        assert.is.false ok
+        assert.is.equal ERR_MUTATE_ALREADY_ITERATED, err
+        assert.is.same {'foo'}, fd\get_all 'field'
+
+    it 'should return error if already rendered', ->
+        fd\set 'field', 'foo'
+        fd\render!
+        ok, err = fd\add 'field', 'bar'
+        assert.is.false ok
+        assert.is.equal ERR_MUTATE_ALREADY_RENDERED, err
+        assert.is.same {'foo'}, fd\get_all 'field'
 
     it 'should set a new value', ->
         ok, err = fd\add 'field', 'foo'
@@ -283,6 +332,22 @@ describe 'delete', ->
         value, err = fd\delete true
         assert.is.nil value
         assert.is.equal ERR_INVALID.name, err
+
+    it 'should return error if already iterated', ->
+        fd\set 'field', 'foo'
+        fd\iterator!
+        value, err = fd\delete 'field'
+        assert.is.nil value
+        assert.is.equal ERR_MUTATE_ALREADY_ITERATED, err
+        assert.is.same {'foo'}, fd\get_all 'field'
+
+    it 'should return error if already rendered', ->
+        fd\set 'field', 'foo'
+        fd\render!
+        value, err = fd\delete 'field'
+        assert.is.nil value
+        assert.is.equal ERR_MUTATE_ALREADY_RENDERED, err
+        assert.is.same {'foo'}, fd\get_all 'field'
 
     it 'should delete value(s) by field name', ->
         assert.is.nil fd\delete 'nonexistent'

@@ -166,7 +166,12 @@ do
       return _accum_0
     end,
     set = function(self, name, value, content_type, filename)
-      local item, err = _make_item(name, value, content_type, filename)
+      local ok, err = self:_check_mutable()
+      if not ok then
+        return false, err
+      end
+      local item
+      item, err = _make_item(name, value, content_type, filename)
       if not item then
         return false, err
       end
@@ -189,7 +194,12 @@ do
       return true
     end,
     add = function(self, name, value, content_type, filename)
-      local item, err = _make_item(name, value, content_type, filename)
+      local ok, err = self:_check_mutable()
+      if not ok then
+        return false, err
+      end
+      local item
+      item, err = _make_item(name, value, content_type, filename)
       if not item then
         return false, err
       end
@@ -207,7 +217,11 @@ do
       return true
     end,
     delete = function(self, name)
-      local ok, err = _check_param_type('name', name)
+      local ok, err = self:_check_mutable()
+      if not ok then
+        return nil, err
+      end
+      ok, err = _check_param_type('name', name)
       if not ok then
         return nil, err
       end
@@ -225,6 +239,15 @@ do
         end
       end
       return #item_indexes
+    end,
+    _check_mutable = function(self)
+      if self._iterated then
+        return false, 'form-data is already iterated, cannot mutate'
+      end
+      if self._rendered then
+        return false, 'form-data is already rendered, cannot mutate'
+      end
+      return true
     end,
     render = function(self)
       local rendered = self._rendered
@@ -264,10 +287,10 @@ do
       if priming == nil then
         priming = false
       end
+      local boundary = self:get_boundary()
       if priming then
         callback(nil)
       end
-      local boundary = self:get_boundary()
       local sep = ('--%s'):format(boundary)
       for idx = 1, self._last_free_item_index - 1 do
         local item = self._items[idx]

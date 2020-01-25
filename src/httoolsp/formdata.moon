@@ -123,6 +123,9 @@ class FormData
         return [extractor items[idx] for idx in *item_indexes]
 
     set: (name, value, content_type, filename) =>
+        ok, err = @_check_mutable!
+        if not ok
+            return false, err
         item, err = _make_item name, value, content_type, filename
         if not item
             return false, err
@@ -140,6 +143,9 @@ class FormData
         return true
 
     add: (name, value, content_type, filename) =>
+        ok, err = @_check_mutable!
+        if not ok
+            return false, err
         item, err = _make_item name, value, content_type, filename
         if not item
             return false, err
@@ -154,6 +160,9 @@ class FormData
         return true
 
     delete: (name) =>
+        ok, err = @_check_mutable!
+        if not ok
+            return nil, err
         ok, err = _check_param_type 'name', name
         if not ok
             return nil, err
@@ -166,6 +175,13 @@ class FormData
             if item_index + 1 == @_last_free_item_index
                 @_last_free_item_index -= 1
         return #item_indexes
+
+    _check_mutable: () =>
+        if @_iterated
+            return false, 'form-data is already iterated, cannot mutate'
+        if @_rendered
+            return false, 'form-data is already rendered, cannot mutate'
+        return true
 
     render: =>
         rendered = @_rendered
@@ -194,9 +210,9 @@ class FormData
         return co
 
     _render: (callback, priming=false) =>
+        boundary = @get_boundary!
         if priming
             callback nil
-        boundary = @get_boundary!
         sep = '--%s'\format boundary
         for idx = 1, @_last_free_item_index - 1
             item = @_items[idx]
