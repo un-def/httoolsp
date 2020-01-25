@@ -1,6 +1,6 @@
 rockspec_format = '3.0'
 package = 'httoolsp'
-version = '0.2.0-1'
+version = '0.3.0-dev-1'
 description = {
   summary = 'A collection of HTTP-related pure Lua helper functions',
   license = 'MIT',
@@ -14,7 +14,7 @@ dependencies = {
 }
 source = {
   url = 'git://github.com/un-def/httoolsp.git',
-  tag = '0.2.0',
+  tag = '0.3.0',
 }
 build = {
   type = 'builtin',

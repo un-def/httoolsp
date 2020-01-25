@@ -1,4 +1,4 @@
-import parse_header from require 'httoolsp'
+import parse_header from require 'httoolsp.headers'
 
 
 table_unpack = table.unpack or unpack
