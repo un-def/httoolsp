@@ -227,7 +227,7 @@ parse_accept_header = function(header, strict)
     strict = false
   end
   header = str_strip(header)
-  if strict and not header:match('^[%g ]*$') then
+  if strict and not header:match('^[%p%w ]*$') then
     return nil, 'invalid characters in header'
   end
   local media_types = { }

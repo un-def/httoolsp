@@ -164,7 +164,7 @@ class AcceptHeader
 
 parse_accept_header = (header, strict=false) ->
     header = str_strip header
-    if strict and not header\match '^[%g ]*$'
+    if strict and not header\match '^[%p%w ]*$'
         return nil, 'invalid characters in header'
     media_types = {}
     for media_range in header\gmatch '[^%c,]+'
