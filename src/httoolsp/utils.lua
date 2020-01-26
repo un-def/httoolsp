@@ -1,13 +1,17 @@
 local str_byte = string.byte
 local str_format = string.format
 local str_gsub = string.gsub
-local _tohex_cb
-_tohex_cb = function(c)
+local is_empty_table
+is_empty_table = function(tbl)
+  return next(tbl) == nil
+end
+local _to_hex_cb
+_to_hex_cb = function(c)
   return str_format('%02x', str_byte(c))
 end
-local tohex
-tohex = function(bytes)
-  local hex = str_gsub(bytes, '.', _tohex_cb)
+local to_hex
+to_hex = function(bytes)
+  local hex = str_gsub(bytes, '.', _to_hex_cb)
   return hex
 end
 local _get_random_function
@@ -33,9 +37,11 @@ end
 local random_bytes = _get_random_function()
 local random_hex
 random_hex = function(length)
-  return tohex(random_bytes(length))
+  return to_hex(random_bytes(length))
 end
 return {
+  is_empty_table = is_empty_table,
+  to_hex = to_hex,
   random_bytes = random_bytes,
   random_hex = random_hex
 }

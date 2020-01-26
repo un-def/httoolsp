@@ -2,11 +2,16 @@ str_byte = string.byte
 str_format = string.format
 str_gsub = string.gsub
 
-_tohex_cb = (c) -> str_format '%02x', str_byte c
 
-tohex = (bytes) ->
-    hex = str_gsub bytes, '.', _tohex_cb
+is_empty_table = (tbl) -> next(tbl) == nil
+
+
+_to_hex_cb = (c) -> str_format '%02x', str_byte c
+
+to_hex = (bytes) ->
+    hex = str_gsub bytes, '.', _to_hex_cb
     return hex
+
 
 _get_random_function = () ->
     -- OpenResty
@@ -26,10 +31,9 @@ _get_random_function = () ->
             t[n] = str_char math_random 1, 255
         return table.concat(t)
 
-
 random_bytes = _get_random_function!
 
-random_hex = (length) -> tohex random_bytes length
+random_hex = (length) -> to_hex random_bytes length
 
 
-:random_bytes, :random_hex
+:is_empty_table, :to_hex, :random_bytes, :random_hex

@@ -23,5 +23,5 @@ lint: build
   find -name '*.moon' -print -exec moonpick {} \;
   luacheck src/
 
-repl:
+repl: build
   rlwrap -a -H '{{cwd}}/.lua_history' lua

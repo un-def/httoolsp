@@ -1,8 +1,6 @@
 import parse_header from require 'httoolsp.headers'
 
 
-table_unpack = table.unpack or unpack
-
 tests = {
   -- original tests from CPython
     {
@@ -65,8 +63,7 @@ tests = {
 }
 
 describe 'parse_header', ->
-    for test in *tests
-        header, expected_value, expected_params = table_unpack test
+    for {header, expected_value, expected_params} in *tests
         it header, ->
             value, params = parse_header header
             assert.are.equal expected_value, value
