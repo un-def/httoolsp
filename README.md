@@ -5,3 +5,7 @@
 [![License](https://img.shields.io/github/license/un-def/httoolsp?style=flat-square)](https://github.com/un-def/httoolsp/blob/master/LICENSE)
 
 A collection of HTTP-related pure Lua helper functions
+
+## Documentation
+
+[https://undef.im/httoolsp/](https://undef.im/httoolsp/)
