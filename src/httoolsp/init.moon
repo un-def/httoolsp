@@ -1,3 +1,8 @@
+--- A collection of HTTP-related pure Lua helper functions
+-- @module httoolsp
+-- @author un.def
+-- @license MIT
+
 {
     _VERSION: '0.3.0'
     _DESCRIPTION: 'A collection of HTTP-related pure Lua helper functions'

@@ -1,0 +1,258 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>httoolsp documentation</title>
+    <link rel="stylesheet" href="../ldoc_fixed.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>httoolsp</h1>
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+<li><a href="#Class_AcceptHeader">Class AcceptHeader </a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/httoolsp.html">httoolsp</a></li>
+  <li><strong>httoolsp.headers</strong></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>httoolsp.headers</code></h1>
+<p>Tools for headers manipulation</p>
+<p>
+
+</p>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#parse_header">parse_header (header)</a></td>
+	<td class="summary">Parse a header into a main value and a table of parameters.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#parse_accept_header">parse_accept_header (header, strict)</a></td>
+	<td class="summary">Parse <code>accept</code> header and return instance of <a href="../modules/httoolsp.headers.html#AcceptHeader">AcceptHeader</a>.</td>
+	</tr>
+</table>
+<h2><a href="#Class_AcceptHeader">Class AcceptHeader </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#AcceptHeader\get_weight">AcceptHeader\get_weight (media_type)</a></td>
+	<td class="summary">Get weight of passed media type.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#AcceptHeader\negotiate">AcceptHeader\negotiate (media_types)</a></td>
+	<td class="summary">Get "best" media type and its weight.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "parse_header"></a>
+    <strong>parse_header (header)</strong>
+    </dt>
+    <dd>
+    Parse a header into a main value and a table of parameters.
+ This function is partially based on <code>cgi.parse_header</code> from CPython.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">header</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.3/manual.html#6.4">string</a></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.3/manual.html#6.4">string</a></span>
+        main value</li>
+        <li>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.3/manual.html#6.6">table</a></span>
+        table of parameters</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "parse_accept_header"></a>
+    <strong>parse_accept_header (header, strict)</strong>
+    </dt>
+    <dd>
+    Parse <code>accept</code> header and return instance of <a href="../modules/httoolsp.headers.html#AcceptHeader">AcceptHeader</a>.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">header</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.3/manual.html#6.4">string</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">strict</span>
+            <span class="types">optional <span class="type">bool</span></span>
+         enable strict mode. Default is <code>false</code>.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.3/manual.html#6.6">table</a></span>
+        <a href="../modules/httoolsp.headers.html#AcceptHeader">AcceptHeader</a> instance
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">nil</span></span>
+
+
+</li>
+        <li>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.3/manual.html#6.4">string</a></span>
+        error message</li>
+    </ol>
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header has-description"><a name="Class_AcceptHeader"></a>Class AcceptHeader </h2>
+
+          <div class="section-description">
+          A class representing parsed <code>accept</code> header.
+ Cannot be instantiated directly, use <a href="../modules/httoolsp.headers.html#parse_accept_header">parse_accept_header</a>.
+          </div>
+    <dl class="function">
+    <dt>
+    <a name = "AcceptHeader\get_weight"></a>
+    <strong>AcceptHeader\get_weight (media_type)</strong>
+    </dt>
+    <dd>
+    Get weight of passed media type.
+ Returns <code>nil</code> if media type is not accepted.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">media_type</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.3/manual.html#6.4">string</a></span>
+         media type
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">float</span></span>
+        weight
+    </ol>
+     <h3>Or</h3>
+    <ol>
+
+           <span class="types"><span class="type">nil</span></span>
+
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "AcceptHeader\negotiate"></a>
+    <strong>AcceptHeader\negotiate (media_types)</strong>
+    </dt>
+    <dd>
+    Get "best" media type and its weight.
+ Returns <code>nil</code> if no media type is accepted.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">media_types</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.3/manual.html#6.6">table</a></span>
+         array of media types
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.3/manual.html#6.4">string</a></span>
+        media type</li>
+        <li>
+           <span class="types"><span class="type">float</span></span>
+        weight</li>
+    </ol>
+     <h3>Or</h3>
+    <ol>
+
+           <span class="types"><span class="type">nil</span></span>
+
+
+
+    </ol>
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2020-02-25 01:21:09 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

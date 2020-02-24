@@ -1,3 +1,5 @@
+--- Tools for headers manipulation
+-- @module httoolsp.headers
 import is_empty_table from require 'httoolsp.utils'
 
 
@@ -23,10 +25,16 @@ table_sort = table.sort
 
 ---- parse_header ----
 
+--- Splits a semicolon-separated string (such as MIME header).
+-- Returns a pair (remainder, value) on each call.
+-- The remainder serves as a control variable and should be ignored.
+-- @local
+-- @param[type=string] header
+-- @param[type=?string] remainder remainder from previous call
+-- @treturn[1] string next remainder
+-- @treturn[1] string next value
+-- @treturn[2] nil
 _parse_header_iter = (header, remainder) ->
-    -- Splits a semicolon-separated string (such as MIME header).
-    -- Returns a pair (remainder, value) on each call.
-    -- The remainder serves as a control variable and should be ignored.
     if not remainder
         -- first iteration
         remainder = header
@@ -45,9 +53,12 @@ _parse_header_iter = (header, remainder) ->
         remainder = str_sub(remainder, idx + 1)
     return remainder, value
 
+--- Parse a header into a main value and a table of parameters.
+-- This function is partially based on `cgi.parse_header` from CPython.
+-- @tparam string header
+-- @treturn string main value
+-- @treturn table table of parameters
 parse_header = (header) ->
-  -- Parse a header into a main value and a table of parameters.
-  -- This function is partially based on `cgi.parse_header` from CPython.
     params = {}
     remainder, value = _parse_header_iter(header)
     for _, p in _parse_header_iter, header, remainder
@@ -101,14 +112,18 @@ _compare_params = (params1, params2) ->
         return false
     return __compare_params params2, params1
 
+--- A class representing parsed `accept` header.
+-- Cannot be instantiated directly, use `parse_accept_header`.
+-- @type AcceptHeader
 class AcceptHeader
 
+    --- AcceptHeader initializer. Should not be used directly.
+    -- @tparam table media_types array of arrays {weight, type, subtype, params}
+    -- weight: number or nil
+    -- type: string
+    -- subtype: string
+    -- params: table or nil
     new: (media_types) =>
-        -- media types: array of arrays {weight, type, subtype, params}
-        --      weight: number or nil
-        --      type: string
-        --      subtype: string
-        --      params: table or nil
         _media_types = {}
         for {weight, type_, subtype, params} in *media_types
             if not weight
@@ -135,8 +150,12 @@ class AcceptHeader
             @_header = table_concat list, ','
         return @_header
 
+    --- Get weight of passed media type.
+    -- Returns `nil` if media type is not accepted.
+    -- @tparam string media_type media type
+    -- @treturn[1] float weight
+    -- @treturn[2] nil
     get_weight: (media_type) =>
-        -- returns weight of passed media type or nil
         media_type, params = parse_header media_type
         type_, subtype = _parse_media_type media_type
         if not type_
@@ -149,8 +168,13 @@ class AcceptHeader
                 return weight
         return nil
 
+    --- Get "best" media type and its weight.
+    -- Returns `nil` if no media type is accepted.
+    -- @tparam table media_types array of media types
+    -- @treturn[1] string media type
+    -- @treturn[1] float weight
+    -- @treturn[2] nil
     negotiate: (media_types) =>
-        -- return "best" media type and its weight or nil
         candidates = {}
         for media_type in *media_types
             weight = @get_weight media_type
@@ -162,6 +186,15 @@ class AcceptHeader
             return nil
         return best[2], best[1]
 
+---
+-- @section end
+
+--- Parse `accept` header and return instance of `AcceptHeader`.
+-- @tparam string header
+-- @tparam ?bool strict enable strict mode. Default is `false`.
+-- @treturn[1] table `AcceptHeader` instance
+-- @treturn[2] nil
+-- @treturn[2] string error message
 parse_accept_header = (header, strict=false) ->
     header = str_strip header
     if strict and not header\match '^[%p%w ]*$'
