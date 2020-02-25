@@ -41,6 +41,7 @@
 <ul class="nowrap">
   <li><a href="../modules/httoolsp.html">httoolsp</a></li>
   <li><strong>httoolsp.headers</strong></li>
+  <li><a href="../modules/httoolsp.formdata.html">httoolsp.formdata</a></li>
 </ul>
 
 </div>
@@ -48,7 +49,7 @@
 <div id="content">
 
 <h1>Module <code>httoolsp.headers</code></h1>
-<p>Tools for headers manipulation</p>
+<p>Submodule for headers manipulation</p>
 <p>
 
 </p>
@@ -57,22 +58,22 @@
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#parse_header">parse_header (header)</a></td>
+	<td class="name" nowrap><a href="#parse_header">parse_header(header)</a></td>
 	<td class="summary">Parse a header into a main value and a table of parameters.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#parse_accept_header">parse_accept_header (header, strict)</a></td>
+	<td class="name" nowrap><a href="#parse_accept_header">parse_accept_header(header, strict)</a></td>
 	<td class="summary">Parse <code>accept</code> header and return instance of <a href="../modules/httoolsp.headers.html#AcceptHeader">AcceptHeader</a>.</td>
 	</tr>
 </table>
 <h2><a href="#Class_AcceptHeader">Class AcceptHeader </a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#AcceptHeader\get_weight">AcceptHeader\get_weight (media_type)</a></td>
+	<td class="name" nowrap><a href="#AcceptHeader\get_weight">AcceptHeader\get_weight(media_type)</a></td>
 	<td class="summary">Get weight of passed media type.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#AcceptHeader\negotiate">AcceptHeader\negotiate (media_types)</a></td>
+	<td class="name" nowrap><a href="#AcceptHeader\negotiate">AcceptHeader\negotiate(media_types)</a></td>
 	<td class="summary">Get "best" media type and its weight.</td>
 	</tr>
 </table>
@@ -86,7 +87,7 @@
     <dl class="function">
     <dt>
     <a name = "parse_header"></a>
-    <strong>parse_header (header)</strong>
+    <strong>parse_header(header)</strong>
     </dt>
     <dd>
     Parse a header into a main value and a table of parameters.
@@ -96,7 +97,7 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">header</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.3/manual.html#6.4">string</a></span>
+            <span class="types"><span class="type">string</span></span>
 
 
 
@@ -106,10 +107,10 @@
     <h3>Returns:</h3>
     <ol>
         <li>
-           <span class="types"><a class="type" href="https://www.lua.org/manual/5.3/manual.html#6.4">string</a></span>
+           <span class="types"><span class="type">string</span></span>
         main value</li>
         <li>
-           <span class="types"><a class="type" href="https://www.lua.org/manual/5.3/manual.html#6.6">table</a></span>
+           <span class="types"><span class="type">table</span></span>
         table of parameters</li>
     </ol>
 
@@ -119,7 +120,7 @@
 </dd>
     <dt>
     <a name = "parse_accept_header"></a>
-    <strong>parse_accept_header (header, strict)</strong>
+    <strong>parse_accept_header(header, strict)</strong>
     </dt>
     <dd>
     Parse <code>accept</code> header and return instance of <a href="../modules/httoolsp.headers.html#AcceptHeader">AcceptHeader</a>.
@@ -128,7 +129,7 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">header</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.3/manual.html#6.4">string</a></span>
+            <span class="types"><span class="type">string</span></span>
 
 
 
@@ -142,7 +143,7 @@
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="https://www.lua.org/manual/5.3/manual.html#6.6">table</a></span>
+           <span class="types"><span class="type">table</span></span>
         <a href="../modules/httoolsp.headers.html#AcceptHeader">AcceptHeader</a> instance
     </ol>
      <h3>Or</h3>
@@ -153,7 +154,7 @@
 
 </li>
         <li>
-           <span class="types"><a class="type" href="https://www.lua.org/manual/5.3/manual.html#6.4">string</a></span>
+           <span class="types"><span class="type">string</span></span>
         error message</li>
     </ol>
 
@@ -171,7 +172,7 @@
     <dl class="function">
     <dt>
     <a name = "AcceptHeader\get_weight"></a>
-    <strong>AcceptHeader\get_weight (media_type)</strong>
+    <strong>AcceptHeader\get_weight(media_type)</strong>
     </dt>
     <dd>
     Get weight of passed media type.
@@ -181,7 +182,7 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">media_type</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.3/manual.html#6.4">string</a></span>
+            <span class="types"><span class="type">string</span></span>
          media type
         </li>
     </ul>
@@ -207,7 +208,7 @@
 </dd>
     <dt>
     <a name = "AcceptHeader\negotiate"></a>
-    <strong>AcceptHeader\negotiate (media_types)</strong>
+    <strong>AcceptHeader\negotiate(media_types)</strong>
     </dt>
     <dd>
     Get "best" media type and its weight.
@@ -217,7 +218,7 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">media_types</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.3/manual.html#6.6">table</a></span>
+            <span class="types"><span class="type">table</span></span>
          array of media types
         </li>
     </ul>
@@ -225,7 +226,7 @@
     <h3>Returns:</h3>
     <ol>
         <li>
-           <span class="types"><a class="type" href="https://www.lua.org/manual/5.3/manual.html#6.4">string</a></span>
+           <span class="types"><span class="type">string</span></span>
         media type</li>
         <li>
            <span class="types"><span class="type">float</span></span>
@@ -251,7 +252,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2020-02-25 01:21:09 </i>
+<i style="float:right;">Last updated 2020-02-26 02:04:34 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

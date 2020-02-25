@@ -346,9 +346,11 @@ do
   _base_0.__class = _class_0
   FormData = _class_0
 end
+local new
+new = function()
+  return FormData()
+end
 return {
   FormData = FormData,
-  new = function(...)
-    return FormData(...)
-  end
+  new = new
 }

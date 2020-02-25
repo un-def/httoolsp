@@ -23,6 +23,7 @@ lint: build
   luacheck src/
 
 doc:
+  rm -r docs || true
   ldoc .
 
 repl: build

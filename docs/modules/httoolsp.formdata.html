@@ -1,0 +1,554 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>httoolsp documentation</title>
+    <link rel="stylesheet" href="../ldoc_fixed.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>httoolsp</h1>
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+<li><a href="#Class_FormData">Class FormData </a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/httoolsp.html">httoolsp</a></li>
+  <li><a href="../modules/httoolsp.headers.html">httoolsp.headers</a></li>
+  <li><strong>httoolsp.formdata</strong></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>httoolsp.formdata</code></h1>
+<p>Submodule for <code>multipart/form-data</code> manipulation</p>
+<p>
+
+</p>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#new">new()</a></td>
+	<td class="summary">Shortcut for <a href="../modules/httoolsp.formdata.html#FormData">FormData</a> constructor.</td>
+	</tr>
+</table>
+<h2><a href="#Class_FormData">Class FormData </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#FormData\get_boundary">FormData\get_boundary()</a></td>
+	<td class="summary">Get boundary value.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#FormData\set_boundary">FormData\set_boundary(boundary)</a></td>
+	<td class="summary">Set boundary value.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#FormData\count">FormData\count()</a></td>
+	<td class="summary">Get the count of form-data parts.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#FormData\get">FormData\get(name, last, as_table)</a></td>
+	<td class="summary">Get the value of a form-data part with the specified name.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#FormData\get_all">FormData\get_all(name, as_table)</a></td>
+	<td class="summary">Get all values of form-data parts with the specified name.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#FormData\set">FormData\set(name, value, content_type, filename)</a></td>
+	<td class="summary">Add form-data part discarding existing parts with the same name (if any).</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#FormData\add">FormData\add(name, value, content_type, filename)</a></td>
+	<td class="summary">Add form-data part keeping existing parts with the same name.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#FormData\delete">FormData\delete(name)</a></td>
+	<td class="summary">Delete part(s) with the specified name.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#FormData\render">FormData\render()</a></td>
+	<td class="summary">Render form-data content to string.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#FormData\iterator">FormData\iterator()</a></td>
+	<td class="summary">Get iterator function rendering form-data content.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "new"></a>
+    <strong>new()</strong>
+    </dt>
+    <dd>
+    Shortcut for <a href="../modules/httoolsp.formdata.html#FormData">FormData</a> constructor.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../modules/httoolsp.formdata.html#FormData">FormData</a></span>
+        FormData instance
+    </ol>
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header has-description"><a name="Class_FormData"></a>Class FormData </h2>
+
+          <div class="section-description">
+          A class representing <code>multipart/form-data</code>.
+          </div>
+    <dl class="function">
+    <dt>
+    <a name = "FormData\get_boundary"></a>
+    <strong>FormData\get_boundary()</strong>
+    </dt>
+    <dd>
+    Get boundary value.
+ Generates random boundary if not set.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">string</span></span>
+        boundary
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "FormData\set_boundary"></a>
+    <strong>FormData\set_boundary(boundary)</strong>
+    </dt>
+    <dd>
+    Set boundary value.
+ Returns error if boundary is already set.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">boundary</span>
+            <span class="types"><span class="type">string</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        true
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">bool</span></span>
+        false</li>
+        <li>
+           <span class="types"><span class="type">string</span></span>
+        error message</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "FormData\count"></a>
+    <strong>FormData\count()</strong>
+    </dt>
+    <dd>
+    Get the count of form-data parts.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">int</span></span>
+
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "FormData\get"></a>
+    <strong>FormData\get(name, last, as_table)</strong>
+    </dt>
+    <dd>
+    Get the value of a form-data part with the specified name.
+ Returns the value or the <em>value table</em> depending on <code>as_table</code> parameter.</p>
+
+<p> <em>Value table</em> is a hash table with the following fields:</p>
+
+<ul>
+    <li><code>name</code>: part name, <code>string</code></li>
+    <li><code>value</code>: part value, <code>string</code> or iterator <code>function</code></li>
+    <li><code>content_type</code>: part media type, <code>string</code> or <code>nil</code></li>
+    <li><code>filename</code>: part filename, <code>string</code> or <code>nil</code></li>
+</ul>
+
+<p> If there is more than one part with the specified name, the value of the only first or last part
+ will be returned depending on <code>last</code> parameter.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">name</span>
+            <span class="types"><span class="type">string</span></span>
+         part name
+        </li>
+        <li><span class="parameter">last</span>
+            <span class="types">optional <span class="type">bool</span></span>
+         get the value of the last part instead of the first if <code>true</code> (default is <code>false</code>)
+        </li>
+        <li><span class="parameter">as_table</span>
+            <span class="types">optional <span class="type">bool</span></span>
+         return the value as a <em>value table</em> if <code>true</code> (default is <code>false</code>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">string</span> or <span class="type">function</span></span>
+        value
+    </ol>
+     <h3>Or</h3>
+    <ol>
+
+           <span class="types"><span class="type">table</span></span>
+        <em>value table</em>
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">nil</span></span>
+
+
+</li>
+        <li>
+           <span class="types"><span class="type">string</span></span>
+        error message</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "FormData\get_all"></a>
+    <strong>FormData\get_all(name, as_table)</strong>
+    </dt>
+    <dd>
+    Get all values of form-data parts with the specified name.
+ Returns an array of values or <em>value tables</em> depending on <code>as_table</code> parameter.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">name</span>
+            <span class="types"><span class="type">string</span></span>
+         part name
+        </li>
+        <li><span class="parameter">as_table</span>
+            <span class="types">optional <span class="type">bool</span></span>
+         return the values as <em>value tables</em> if <code>true</code> (default is <code>false</code>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">table</span></span>
+        array of values or <em>value tables</em>
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">nil</span></span>
+
+
+</li>
+        <li>
+           <span class="types"><span class="type">string</span></span>
+        error message</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "FormData\set"></a>
+    <strong>FormData\set(name, value, content_type, filename)</strong>
+    </dt>
+    <dd>
+    Add form-data part discarding existing parts with the same name (if any).
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">name</span>
+            <span class="types"><span class="type">string</span></span>
+         part name
+        </li>
+        <li><span class="parameter">value</span>
+            <span class="types"><span class="type">string</span> or <span class="type">function</span></span>
+         part value
+        </li>
+        <li><span class="parameter">content_type</span>
+            <span class="types">optional <span class="type">string</span></span>
+         part media type
+        </li>
+        <li><span class="parameter">filename</span>
+            <span class="types">optional <span class="type">string</span></span>
+         part filename
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">true</span></span>
+
+
+
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">false</span></span>
+
+
+</li>
+        <li>
+           <span class="types"><span class="type">string</span></span>
+        error message</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "FormData\add"></a>
+    <strong>FormData\add(name, value, content_type, filename)</strong>
+    </dt>
+    <dd>
+    Add form-data part keeping existing parts with the same name.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">name</span>
+            <span class="types"><span class="type">string</span></span>
+         part name
+        </li>
+        <li><span class="parameter">value</span>
+            <span class="types"><span class="type">string</span> or <span class="type">function</span></span>
+         part value
+        </li>
+        <li><span class="parameter">content_type</span>
+            <span class="types">optional <span class="type">string</span></span>
+         part media type
+        </li>
+        <li><span class="parameter">filename</span>
+            <span class="types">optional <span class="type">string</span></span>
+         part filename
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">true</span></span>
+
+
+
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">false</span></span>
+
+
+</li>
+        <li>
+           <span class="types"><span class="type">string</span></span>
+        error message</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "FormData\delete"></a>
+    <strong>FormData\delete(name)</strong>
+    </dt>
+    <dd>
+    Delete part(s) with the specified name.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">name</span>
+            <span class="types"><span class="type">string</span></span>
+         part name
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">int</span></span>
+        count of deleted parts, > 0
+    </ol>
+     <h3>Or</h3>
+    <ol>
+
+           <span class="types"><span class="type">nil</span></span>
+        if no part found
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">nil</span></span>
+
+
+</li>
+        <li>
+           <span class="types"><span class="type">string</span></span>
+        error message</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "FormData\render"></a>
+    <strong>FormData\render()</strong>
+    </dt>
+    <dd>
+    Render form-data content to string.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">string</span></span>
+        rendered form-data
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">nil</span></span>
+
+
+</li>
+        <li>
+           <span class="types"><span class="type">string</span></span>
+        error message</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "FormData\iterator"></a>
+    <strong>FormData\iterator()</strong>
+    </dt>
+    <dd>
+    Get iterator function rendering form-data content.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">function</span></span>
+        iterator
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">nil</span></span>
+
+
+</li>
+        <li>
+           <span class="types"><span class="type">string</span></span>
+        error message</li>
+    </ol>
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2020-02-26 02:04:34 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

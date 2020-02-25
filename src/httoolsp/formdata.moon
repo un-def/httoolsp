@@ -1,3 +1,5 @@
+--- Submodule for `multipart/form-data` manipulation
+-- @module httoolsp.formdata
 import random_hex from require 'httoolsp.utils'
 
 
@@ -58,6 +60,8 @@ _item_to_table = (item) ->
     }
 
 
+--- A class representing `multipart/form-data`.
+-- @type FormData
 class FormData
 
     new: =>
@@ -68,6 +72,9 @@ class FormData
         @_iterated = false
         @_rendered = nil
 
+    --- Get boundary value.
+    -- Generates random boundary if not set.
+    -- @treturn string boundary
     get_boundary: =>
         boundary = @_boundary
         if boundary
@@ -76,6 +83,12 @@ class FormData
         @_boundary = boundary
         return boundary
 
+    --- Set boundary value.
+    -- Returns error if boundary is already set.
+    -- @tparam string boundary
+    -- @treturn[1] bool true
+    -- @treturn[2] bool false
+    -- @treturn[2] string error message
     set_boundary: (boundary) =>
         if @_boundary
             return false, 'boundary is already set'
@@ -84,12 +97,33 @@ class FormData
         @_boundary = boundary
         return true
 
+    --- Get the count of form-data parts.
+    -- @treturn int
     count: =>
         count = 0
         for _, item_indexes in pairs @_names
             count += #item_indexes
         return count
 
+    --- Get the value of a form-data part with the specified name.
+    -- Returns the value or the _value table_ depending on `as_table` parameter.
+    --
+    -- _Value table_ is a hash table with the following fields:
+    --
+    -- * `name`: part name, `string`
+    -- * `value`: part value, `string` or iterator `function`
+    -- * `content_type`: part media type, `string` or `nil`
+    -- * `filename`: part filename, `string` or `nil`
+    --
+    -- If there is more than one part with the specified name, the value of the only first or last part
+    -- will be returned depending on `last` parameter.
+    -- @tparam string name part name
+    -- @tparam ?bool last get the value of the last part instead of the first if `true` (default is `false`)
+    -- @tparam ?bool as_table return the value as a _value table_ if `true` (default is `false`)
+    -- @treturn[1] string|function value
+    -- @treturn[2] table _value table_
+    -- @treturn[3] nil
+    -- @treturn[3] string error message
     get: (name, last=false, as_table=false) =>
         ok, err = _check_param_type 'name', name
         if not ok
@@ -107,6 +141,13 @@ class FormData
             return _item_to_table item
         return _item_to_value item
 
+    --- Get all values of form-data parts with the specified name.
+    -- Returns an array of values or _value tables_ depending on `as_table` parameter.
+    -- @tparam string name part name
+    -- @tparam ?bool as_table return the values as _value tables_ if `true` (default is `false`)
+    -- @treturn[1] table array of values or _value tables_
+    -- @treturn[2] nil
+    -- @treturn[2] string error message
     get_all: (name, as_table=false) =>
         ok, err = _check_param_type 'name', name
         if not ok
@@ -122,6 +163,14 @@ class FormData
             extractor = _item_to_value
         return [extractor items[idx] for idx in *item_indexes]
 
+    --- Add form-data part discarding existing parts with the same name (if any).
+    -- @tparam string name part name
+    -- @tparam string|function value part value
+    -- @tparam ?string content_type part media type
+    -- @tparam ?string filename part filename
+    -- @treturn[1] true
+    -- @treturn[2] false
+    -- @treturn[2] string error message
     set: (name, value, content_type, filename) =>
         ok, err = @_check_mutable!
         if not ok
@@ -142,6 +191,14 @@ class FormData
         @_names[name] = {item_index}
         return true
 
+    --- Add form-data part keeping existing parts with the same name.
+    -- @tparam string name part name
+    -- @tparam string|function value part value
+    -- @tparam ?string content_type part media type
+    -- @tparam ?string filename part filename
+    -- @treturn[1] true
+    -- @treturn[2] false
+    -- @treturn[2] string error message
     add: (name, value, content_type, filename) =>
         ok, err = @_check_mutable!
         if not ok
@@ -159,6 +216,12 @@ class FormData
             @_names[name] = {item_index}
         return true
 
+    --- Delete part(s) with the specified name.
+    -- @tparam string name part name
+    -- @treturn[1] int count of deleted parts, > 0
+    -- @treturn[2] nil if no part found
+    -- @treturn[3] nil
+    -- @treturn[3] string error message
     delete: (name) =>
         ok, err = @_check_mutable!
         if not ok
@@ -183,6 +246,10 @@ class FormData
             return false, 'form-data is already rendered, cannot mutate'
         return true
 
+    --- Render form-data content to string.
+    -- @treturn[1] string rendered form-data
+    -- @treturn[2] nil
+    -- @treturn[2] string error message
     render: =>
         rendered = @_rendered
         if rendered
@@ -197,6 +264,10 @@ class FormData
         @_rendered = rendered
         return rendered
 
+    --- Get iterator function rendering form-data content.
+    -- @treturn[1] function iterator
+    -- @treturn[2] nil
+    -- @treturn[2] string error message
     iterator: =>
         if @_iterated
             return nil, 'form-data is already iterated, cannot iterate again'
@@ -236,5 +307,11 @@ class FormData
                     callback CRLF
         callback '--%s--%s'\format boundary, CRLF
 
+--- @section end
 
-:FormData, new: (...) -> FormData(...)
+--- Shortcut for `FormData` constructor.
+-- @treturn FormData FormData instance
+new = () -> FormData()
+
+
+:FormData, :new

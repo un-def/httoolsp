@@ -1,4 +1,4 @@
---- Tools for headers manipulation
+--- Submodule for headers manipulation
 -- @module httoolsp.headers
 import is_empty_table from require 'httoolsp.utils'
 
@@ -186,8 +186,7 @@ class AcceptHeader
             return nil
         return best[2], best[1]
 
----
--- @section end
+--- @section end
 
 --- Parse `accept` header and return instance of `AcceptHeader`.
 -- @tparam string header
